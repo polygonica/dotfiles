@@ -37,3 +37,12 @@ See <https://www.chezmoi.io/quick-start/#using-chezmoi-across-multiple-machines>
     - Command timing
   - TODO:
     - User @ host info on prompt to avoid discombobulation with most machines running a standardized prompt
+- Tmux
+  - Currently:
+    - Enabled mouse support for consistency with Wezterm / modern WMs
+- NeoVim
+  - Currently (most important changes):
+    - Show relative line numbers (useful for jumping around)
+    - Enabled mouse support for consistency with modern editors
+    - Indent with 4 spaces
+    - Enable full color
