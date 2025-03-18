@@ -40,6 +40,7 @@ See <https://www.chezmoi.io/quick-start/#using-chezmoi-across-multiple-machines>
 - Tmux
   - Currently:
     - Enabled mouse support for consistency with Wezterm / modern WMs
+    - Enabled full color
 - NeoVim
   - Currently (most important changes):
     - Show relative line numbers (useful for jumping around)
