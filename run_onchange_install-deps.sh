@@ -92,6 +92,12 @@ install_deps() {
 
     # Install each dependency using its appropriate handler
     for dep in "${!DEPENDENCIES[@]}"; do
+        # Skip if the dependency is already installed
+        if command_exists "$dep"; then
+            echo "$dep is already installed, skipping..."
+            continue
+        fi
+
         local handler="${DEPENDENCIES[$dep]}"
         case "$handler" in
             "standard")
