@@ -47,3 +47,8 @@ See <https://www.chezmoi.io/quick-start/#using-chezmoi-across-multiple-machines>
     - Enabled mouse support for consistency with modern editors
     - Indent with 4 spaces
     - Enable full color
+- Cursor
+  - Currently (most important changes)
+    - Automatic light / dark theming
+    - Specifies a powerline font for integrated terminal
+
