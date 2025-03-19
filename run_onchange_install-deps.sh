@@ -2,26 +2,17 @@
 
 # Function to check if a command exists
 command_exists() {
-    command -v "$1" >/dev/null 2>&1
+    type "$1" &> /dev/null
 }
 
-# Define all dependencies and their installation handlers
-declare -A DEPENDENCIES=(
-    # Common packages that use standard package manager installation
-    ["curl"]="standard"
-    ["wget"]="standard"
-    ["tmux"]="standard"
-    ["vim"]="standard"
-    ["neovim"]="standard"
-    ["wezterm"]="wezterm"
-    ["starship"]="starship"
-)
+# Define standard packages
+STANDARD_PACKAGES="curl wget tmux vim neovim"
 
 # Function to install packages using the appropriate package manager
 install_packages() {
-    local packages=("$@")
     local pkg_manager="$1"
     shift
+    local packages=("$@")
 
     case "$pkg_manager" in
         "brew")
@@ -45,13 +36,22 @@ install_packages() {
 
 # Function to install Starship
 install_starship() {
+    if type starship &> /dev/null; then
+        echo "Starship is already installed, skipping..."
+        return
+    fi
     echo "Installing Starship..."
-    sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+    sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y
 }
 
 # Function to install Wezterm
 install_wezterm() {
     local pkg_manager="$1"
+
+    if type wezterm &> /dev/null; then
+        echo "Wezterm is already installed, skipping..."
+        return
+    fi
 
     echo "Installing Wezterm..."
     case "$pkg_manager" in
@@ -90,48 +90,35 @@ install_deps() {
             ;;
     esac
 
-    # Install each dependency using its appropriate handler
-    for dep in "${!DEPENDENCIES[@]}"; do
-        # Skip if the dependency is already installed
-        if command_exists "$dep"; then
-            echo "$dep is already installed, skipping..."
+    # Install standard packages
+    for pkg in $STANDARD_PACKAGES; do
+        if type "$pkg" &> /dev/null; then
+            echo "$pkg is already installed, skipping..."
             continue
         fi
-
-        local handler="${DEPENDENCIES[$dep]}"
-        case "$handler" in
-            "standard")
-                install_packages "$pkg_manager" "$dep"
-                ;;
-            "starship")
-                install_starship
-                ;;
-            "wezterm")
-                install_wezterm "$pkg_manager"
-                ;;
-            *)
-                echo "Unknown handler for $dep: $handler"
-                exit 1
-                ;;
-        esac
+        install_packages "$pkg_manager" "$pkg"
     done
+
+    # Install special packages
+    install_starship
+    install_wezterm "$pkg_manager"
 }
 
 # Main installation logic
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS
-    if ! command_exists brew; then
+    if ! type brew &> /dev/null; then
         echo "Installing Homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
     install_deps "darwin" "brew"
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Linux
-    if command_exists apt; then
+    if type apt &> /dev/null; then
         install_deps "linux" "apt"
-    elif command_exists dnf; then
+    elif type dnf &> /dev/null; then
         install_deps "linux" "dnf"
-    elif command_exists pacman; then
+    elif type pacman &> /dev/null; then
         install_deps "linux" "pacman"
     else
         echo "Unsupported Linux distribution"
