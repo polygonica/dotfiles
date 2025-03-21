@@ -51,4 +51,6 @@ See <https://www.chezmoi.io/quick-start/#using-chezmoi-across-multiple-machines>
   - Currently (most important changes)
     - Automatic light / dark theming
     - Specifies a powerline font for integrated terminal
-
+- MacOS
+  - TODO:
+    - figure out how to set an adaptive system theme and wallpaper automatically
