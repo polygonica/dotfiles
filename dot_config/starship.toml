@@ -173,3 +173,10 @@ symbol = " "
 
 [gradle]
 symbol = " "
+
+[gcloud]
+symbol = "☁️ "
+format = "[$symbol$project/$region]($style) "
+style = "blue bold"
+disabled = false
+
