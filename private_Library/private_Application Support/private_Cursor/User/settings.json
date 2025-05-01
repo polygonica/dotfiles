@@ -2,6 +2,6 @@
     "window.commandCenter": 1,
     "window.autoDetectColorScheme": true,
     "workbench.preferredLightColorTheme": "Default Light Modern",
-    "terminal.integrated.fontFamily": "Hack Nerd Font Mono",
+    "terminal.integrated.fontFamily": "Hack Nerd Font Mono, Symbols Nerd Font Mono",
     "terminal.integrated.fontLigatures": true
 }
