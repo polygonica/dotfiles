@@ -180,3 +180,9 @@ format = "[$symbol$project/$region]($style) "
 style = "blue bold"
 disabled = false
 
+# Git status configuration
+# Shows only certain explicitly selected status indicators to reduce noisy $ showing due to Graphite
+[git_status]
+disabled = false
+format = '([\[$conflicted$staged$modified$untracked$renamed$deleted\]]($style) )'
+style = "red bold"
