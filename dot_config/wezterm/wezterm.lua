@@ -270,7 +270,7 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
   }
 end)
 
--- Rebind OPT-Left, OPT-Right as ALT-b, ALT-f respectively to match Terminal.app behavior
+-- Rebind OPT-Left, OPT-Right as UNIX ALT-b (back), ALT-f (forwards) respectively to match Terminal.app behavior
 config.keys = {
     {
         key = 'LeftArrow',
@@ -283,7 +283,10 @@ config.keys = {
     {
         key = 'RightArrow',
         mods = 'OPT',
-        action = act.SendKey { key = 'f', mods = 'ALT' },
+        action = act.SendKey {
+            key = 'f',
+            mods = 'ALT',
+        },
     },
 }
 
