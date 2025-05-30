@@ -13,4 +13,5 @@ vim.opt.tabstop = 4           -- Tab width
 vim.opt.shiftwidth = 4        -- Indentation width
 vim.opt.expandtab = true      -- Use spaces instead of tabs
 vim.opt.termguicolors = true  -- Enable 24-bit RGB color
+vim.opt.clipboard = "unnamedplus" -- Use system clipboard by default (e.g.: for yy yank)
 
